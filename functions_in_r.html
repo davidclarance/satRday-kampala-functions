@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Functions in R</title>
+    <meta charset="utf-8">
+    <meta name="author" content="David Clarance, M-KOPA SOLAR" />
+    <meta name="date" content="2019-05-25" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Functions in R
+### David Clarance, M-KOPA SOLAR
+### 2019-05-25
+
+---
+
+
+# Introduction
+
+
+* Currently work as a Data Scientist at M-KOPA SOLAR.
+* Previously was Research Director at the Busara Center for Behavioral Economics.
+* Really like birds. Current favorite bird is the Golden Breasted Bunting.
+
+
+
+
+
+&lt;img src="golden_breasted_bunting.jpeg" width="533" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Structure of the workshop
+
+This workshop takes a deep dive into functions in R. We'll focus on different aspects of functions, highlighting what a wonderful and sometimes weird language R can be. 
+
+
+***
+
+
+We'll think of functions in two ways. 
+
+
+**A function as a recipe : ** We'll explore how a function is like a recipe. You put some stuff in, cook them together and then get something out at the end. 
+
+
+**A function as a environment : ** We'll learn how functions are environments in which objects live. Knowing the rules of how environment interacts with other environments become important.
+
+
+---
+
+# Some pointers to help us learn
+
+* This workshop assumes that you know how to write basic code in R. Beginners are very welcome but if you're absolutely new to R, I would recommend attending the other session that's happening right now. 
+
+--
+
+
+* Please ask loads of questions, even if you think they are silly. We're in this together. I might be presenting but I've asked a TON of questions and googled my way through most of it.
+
+
+--
+
+
+
+* Feel free to google stuff when you're working through an exercise. Knowing what to google is an important skill and you shouldn't feel bad doing it. In fact, after an exercise, we can discuss what appropriate keywords to google when seeking help. 
+
+
+--
+
+
+* I understand that social media is important to many of us. However, it can be quite distracting. We'll take a couple of 3 minute breaks for you to check your phones, respond to messages, take pictures, post etc. At all other times could we please put our phones away and on silent?
+
+
+---
+
+class: inverse, center, middle
+
+# Functions as recipes
+
+&lt;img src="red_collared_widowbird.jpeg" width="356" style="display: block; margin: auto;" /&gt;
+*(red-collared widowbird)*
+
+---
+
+
+# A function is a recipe
+
+We'll build on our understanding of what functions really are during the day. 
+
+
+
+First let's start with the simplest definition. 
+
+
+&gt; Defining and running a function is a lot like making and following a recipe. You put in some ingredients (arguments). You define a process (when you add ingredients, how much heat etc). Something happens. You get something (hopefully) delicious at the end. 
+
+
+To break that down a bit:
+
+
+* You start with figuring out what you want your inputs to be. 
+* You define a way in which those inputs should interact.
+* You define what you want to get as a final output.
+
+
+---
+
+# Our first function
+
+
+Our goal is to make a function that adds two numbers. 
+
+--
+* Step one: Decide on a name for our function. Let call it `sum_two_numbers`
+
+```r
+sum_two_numbers
+```
+--
+* Step two: Assign it to a function call
+
+```r
+sum_two_numbers &lt;- function(){}
+```
+
+--
+* Step three: Decide on what inputs you want. Since we wan two numbers we'll call them number_1 and number_2. Put them inside the first round brackets. 
+
+```r
+sum_two_numbers &lt;- function(number_1, number_2){}
+```
+
+---
+
+* Step four : Define a process to use those inputs. We want to sum the numbers. Put the process into the curly brackets.  
+
+```r
+sum_two_numbers &lt;- function(number_1, number_2){
+
+  sum_of_two = number_1 + number_2
+
+}
+
+```
+--
+
+* Step six: Define an output to return. We want to return `sum_of_two`
+
+```r
+sum_two_numbers &lt;- function(number_1, number_2){
+
+  sum_of_two = number_1 + number_2
+
+  sum_of_two
+}
+```
+
+--
+
+* Step seven: Use the functions. Let's sum 103 and 27
+
+```r
+
+sum_two_numbers(103, 27)
+
+```
+---
+
+# Defining the functions
+
+
+```r
+# start by defining the name of the function and the arguments.
+sum_two_numbers &lt;- function(number_1, number_2){
+  
+  # define the process
+  sum_numbers = number_1 + number_2
+  
+  # specify an output. 
+  sum_numbers
+  
+}
+
+sum_two_numbers(8, 2)
+```
+
+```
+## [1] 10
+```
+
+
+What happened here?
+
+
+---
+
+
+# How to write a function in R.
+
+
+
+
+```r
+name_of_function &lt;- function(arg1, arg2){
+  
+  
+  
+  # do something here
+  
+  
+  some_output
+  
+}
+```
+
+Using a function was actually the most confusing thing when I first learned about functions. How do you use a function you make?
+
+
+```r
+name_of_function(arg1, arg2)
+```
+
+
+---
+
+# Exercise 1: Write you first functions
+
+a. Write a function that takes any two numbers and returns the absolute difference. 
+
+
+b. Write a function that takes any number of integers and returns their sum.  
+
+--
+
+
+```r
+# 1.a
+
+abs_difference &lt;- function(x, y){
+  
+  diff = abs(x - y)
+  
+  diff
+}
+
+abs_difference(1, 4)
+```
+
+```
+## [1] 3
+```
+
+```r
+abs_difference(4, 1)
+```
+
+```
+## [1] 3
+```
+
+---
+
+There's actually multiple ways of doing the second problem. 
+
+
+```r
+# 1.b
+
+# Method 1
+get_any_sum_v1 &lt;- function(vector_of_numbers){
+  
+  sum(vector_of_numbers)
+  
+}
+
+# get_any_sum_v1(c(1,2))
+# get_any_sum_v1(c(1,2, 4))
+# get_any_sum_v1(c(1,2, 4, 100))
+
+
+# Method 2
+get_any_sum_v2 &lt;- function(...){
+  
+  sum(...)
+  
+}
+
+# get_any_sum_v2(1,2)
+# get_any_sum_v2(1,2, 4)
+# get_any_sum_v2(1,2, 4, 100)
+```
+
+---
+
+# What in the world are the dots for?
+
+There are multiple names for this. Technically it is called an ellipses. However, more commonly it is referred to as dots, dot-dot-dot or three dots. 
+
+
+**Use Case 1: Pass arbitrary number of arguments to your function**
+
+***
+
+
+```r
+print_multiple_things &lt;- function(...){
+  
+  my_statements &lt;- list(...)
+  
+  paste(my_statements)
+  
+}
+
+print_multiple_things("a", 1, "d")
+```
+
+```
+## [1] "a" "1" "d"
+```
+
+
+---
+
+**Use Case 2: When calling other functions within your function**
+
+
+* What does this function do?
+* Why are the ellipses useful?
+* What statistical principle does this function demonstrate?
+
+
+```r
+# this function is terribly wriiten
+# (without comments and explanations)
+get_distribution &lt;- function(n_sims, ...){
+  
+  x &lt;- 1:n_sims
+
+  x_means &lt;- purrr::map_dbl(x, function(x){
+    
+    random_numbers &lt;- runif(1000)
+    
+    mean(random_numbers)
+    
+  })
+  
+  hist(x_means, ...)
+  
+}
+```
+
+
+What's weird about this function?
+
+---
+
+
+```r
+get_distribution(n_sims = 10000, col = "blue", breaks = 40)
+```
+
+![](functions_in_r_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+
+* This is demonstration of the Central Limit Theorem. 
+* What does the CLT teach us?
+
+---
+# Exercise 2: Learning to "pass the dots"
+
+
+* Let's suppose in the previous example, instead of drawing from an uniform distribution, we tossed a coin and took the outcome each time. Write a function to plot the distribution of the means of 100 coin tosses.
+
+* If you want to step it up, treat the random process as the roll of a dice. 
+
+---
+class: inverse, center, middle
+
+# Functions as environments
+
+&lt;img src="africa_finfoot.jpeg" width="512" style="display: block; margin: auto;" /&gt;
+*(african finfoot)*
+
+---
+
+# What's an environment?
+
+&gt; An environment is a collection of names. The job of an environment is to bind names to values - *(paraphrased from Advanced R)*
+
+What does this mean?
+
+
+* Environments contain a bunch of names. They don't actually contain objects. 
+* Each name in the environment points to an object stored somewhere in memory. 
+* Names can point to the same object. 
+* Two different names can point to two different objects that have the same value. 
+
+
+This section borrows heavily from the Functions chapter in Advanced R by Hadley Wickham. 
+
+---
+
+
+```r
+# What does the following code do?
+
+a &lt;- 1:10
+tracemem(a)
+
+b &lt;- a
+tracemem(b)
+
+b[1] &lt;- 1
+```
+
+
+(draw on board)
+
+
+&lt;!-- There's a lot more detail and nuance here. You can read the chapter on environment's in Hadley Wickham's [Advanced R](http://adv-r.had.co.nz/Environments.html) --&gt;
+
+
+---
+
+# Exploring environments
+
+There's a lot of detail and nuance to understanding enviornments. Currently I'm only going to focus on the bits that are relevant to functions. For more, you can read the chapter on environments in Hadley Wickham's [Advanced R](http://adv-r.had.co.nz/Environments.html)
+
+There are four environments that are significant:
+
+1. Global environment - the env that you mostly work in. 
+2. Base environment - env of the `base` package.
+3. Empty environment - the only enviornment without a parent.
+4. environment() - the current env you're in. 
+
+Try running below:
+
+* What does it do?
+
+
+```r
+search()
+```
+
+We'll come back to this in a bit. 
+
+---
+
+# Continuing to explore
+
+
+Try running this in your console. What does it do?
+
+
+```r
+ls()
+```
+
+How about this?
+
+
+```r
+add_to_secret_number &lt;- function(y){
+  
+  my_secret_number &lt;- 100
+  
+  my_sum = my_secret_number + y
+  
+  my_sum
+  
+}
+```
+
+* Did anything get added to your env?
+* Did anything not get added to your env?
+
+---
+
+
+# A function is an environment
+
+Now, we notice that while the function `add_to_secret_number` gets included in the current environment, `my_secret_number` does not. 
+
+
+* Why could this be the case?
+
+
+** You can think of functions as environments. This is not only for theoretic interest. It becomes absolutely critical once you start writing many functions and have massive scripts with *free values*. **
+
+
+Today we'll talk about how object-value pairing move inside and outside a function. Let's start with the case we already know - how do we access objects created inside a function once we are outside it?
+
+
+---
+
+
+#   Inside -&gt; Outside
+
+
+* Do you have any ideas on how this might work?
+
+--
+
+** The last expression or the `return` clause. **
+--
+
+* Any other methods?
+
+** The `&lt;&lt;-` method. ** 
+
+
+```r
+add_to_secret_number &lt;- function(y){
+  
+  my_secret_number &lt;&lt;- 100
+  
+  my_sum = my_secret_number + y
+  
+  my_sum
+  
+}
+```
+
+
+---
+
+
+# Exercise 3: Timing matters
+
+
+Here we'll see something that's quite mind blowing in R that you as a user rarely notice. However it enables a lot of cool things and will give you a better sense of how your function will work. 
+
+1. run `ls()` in the console of your RStudio session. Copy-paste the output in notepad/sublime/new rstudio script. 
+
+2. Write a simple function called `generate_greeting` that takes a name and adds it to the end of a string called `greeting` which has the value `"Greetings from SatRDay Kampala. My name is "`. The new complete string is stored in a variable called `final_greeting` and returned as the output.  
+
+3. Once you have written the function, repeat (1). Did anything new appear?
+
+4. Now repeat (2) but with an `&lt;&lt;-` operator. Run the function. Don't run the function with the value. Just the definition. Repeat (1).
+
+5. Now run the function in 4 but with some values. Repeat (1).
+
+6. What did you learn? 
+
+
+
+
+
+---
+
+
+# Lazy Evaluation
+
+&gt; Lazy evaluation just means that functions are evaluated only when they are used. 
+
+**Pros:**
+
+It is powerful because it makes programs much more efficient, especially in interactive programming. Only what is absolutely needed is evaluated. Only the object immediately required are looked for / loaded into memory. 
+
+
+**Downside:**
+
+It can make things much less predictable as you're not always sure a symbol will be evaluated. 
+
+Lazy eval draws on a special kind of object called a *Promise*. If you want to learn more, you can read Colin Fay's blog linked below.  
+
+
+(from [Colin Fay's About Lazy Eval](https://colinfay.me/lazyeval/))
+
+---
+
+
+# Outside -&gt; Inside
+
+* The first method is by the use of arguments in a function. Consider the following function:
+
+
+```r
+my_function &lt;- function(x, y){
+  
+  x + y - a
+  
+}
+```
+
+How does R know where to get the values of x, y and a from?
+
+* x and y are relatively straightforward - just get them when the user inputs them. 
+* a is called a *free variable* and there are rules to determine where to search for a's value. 
+
+---
+
+# Scoping in R
+
+* Scoping, in the context of R, refers to the rules used to search for values for names of free variables in R. 
+
+
+* R uses two kinds of scoping - lexical scoping and dynamic scoping. 
+
+
+* Lexical scoping searches for values for objects based on when they were created, not when they are called.
+
+
+* Dynamic scoping does it the other way around. For now we won't worry about this too much. 
+
+So how does R search for values in the first place?
+
+
+---
+
+
+# How does R search for values?
+
+* R starts in the current environment - in interactive work this very often is the global environment. However it could also be the function environment that we just created. 
+
+* If a value is not found in the current environment, then R moves through a list of environments. 
+  * Can anyone guess what that list would be?
+  * Have you ever read in a package and a function in it behaves very strangely?
+
+--  
+
+
+  
+
+```r
+search()
+```
+
+
+
+---
+
+# Lexical scoping 
+
+
+Lexical scoping tells R *where* to do the search described on the last slide - Search in the environment where a function is defined, not where it is evaluated/run. 
+
+
+
+```r
+# get power
+# takes a number (base_number) and raises it to exponent (exp)
+get_power &lt;- function(exp){
+  
+  power &lt;- function(base_number){
+    
+    base_number^exp
+    
+  }
+  
+  power
+}
+
+get_power 
+ 
+
+
+# define cube function
+get_cube &lt;- get_power(3)
+get_cube(7)
+
+# explicitly set exp
+exp = 2
+
+# does the output change?
+get_cube(7)
+```
+
+
+---
+
+
+# Exercise 4: Understanding lexical scopes
+
+
+```r
+# can you work out the output?
+
+y &lt;- 10
+
+
+f &lt;- function(x){
+  
+  y &lt;- 2
+  y^2 + g(x)
+  
+}
+
+
+g &lt;- function(x){
+  
+  x * y 
+  
+}
+
+f(3)
+```
+
+
+
+---
+class: inverse, center, middle
+
+# Tying everything together
+
+&lt;img src="bronze_mannikin.jpg" width="512" style="display: block; margin: auto;" /&gt;
+*(bronze mannikin)*
+
+---
+
+# Recap
+
+* Functions are written because they make code neater, help with replicability and make code easier to share. 
+
+--
+
+* Functions are like recipes. You define inputs, an interaction process and get outputs. 
+
+--
+
+* There are multiple ways you can define inputs and outputs, and with time you'll figure out all of them. 
+
+--
+
+* Functions in R are special because they create environments. 
+
+--
+
+* R has special rules that dictate how values are searched across environments.
+
+--
+
+* Learning and understanding these rules can help write reliable code. 
+
+
+---
+
+class: inverse, center, middle
+
+
+dclarance@gmail.com
+
+https://github.com/davidclarance/satRday-kampala-functions
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
